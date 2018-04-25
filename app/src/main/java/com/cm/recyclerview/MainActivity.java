@@ -11,15 +11,14 @@ import android.widget.Button;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
     RecyclerView rv;
     SeriesAdapter adapter;
     ArrayList<Serie> series;
     ArrayList<Serie> favoritos;
     LinearLayoutManager lManager;
-    Button series_buttom;
+    Button toda;
     Button favorite;
-    View left, middle, right;
+    View left,middle,right;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,27 +27,27 @@ public class MainActivity extends AppCompatActivity {
         left = findViewById(R.id.leftV);
         right = findViewById(R.id.rightV);
         favoritos = new ArrayList<>();
-        series = new ArrayList<>();
-
+        //Se busca el layout que se va utilizar y se le asigna un adminstrador de recycler views
         rv = findViewById(R.id.recycler);
         rv.setHasFixedSize(true);
-
         lManager = new LinearLayoutManager(this);
         rv.setLayoutManager(lManager);
-
+        //Se llena el arreglo de series
         prepareSeries();
-
+        //Se asigna un adaptador con la lista series que tiene por contexto el activity
         adapter = new SeriesAdapter(series, this);
         rv.setAdapter(adapter);
-
-        series_buttom = findViewById(R.id.serie_buttom);
+        //Agregan Listener a los botones
         favorite = findViewById(R.id.favoritos);
-
-        series_buttom.setOnClickListener(new View.OnClickListener() {
+        toda = findViewById(R.id.toda);
+        toda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Se llama funcion para cambiar el estado de View
                 resizeRight();
+                //Se le indica al RecyclerView que cambia a modo general
                 adapter.SetFalse();
+                //Se le reasigna los objetos
                 adapter = new SeriesAdapter(series, view.getContext());
                 rv.setAdapter(adapter);
             }
@@ -56,46 +55,55 @@ public class MainActivity extends AppCompatActivity {
         favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Se llama funcion para cambiar el estado de View
                 resizeLeft();
+                //Se le indica al RecyclerView que cambia a modo de favoritos
                 adapter.SetTrue();
-                adapter = new SeriesAdapter(series, view.getContext());
+                //Se le reasigna los objetos
+                adapter = new SeriesAdapter(favoritos, view.getContext());
                 rv.setAdapter(adapter);
             }
         });
     }
-
-    public void prepareSeries() {
-        String TAG = "Mensaje";
+    //Funcion que se encarga de crear y llenar la lista principal
+    private void prepareSeries() {
         series = new ArrayList<>();
-        series.add(new Serie("The Walking Dead", "13", R.drawable.wd, "TV show created by Robert Kirgman"));
-        series.add(new Serie("Game of Thrones", "13", R.drawable.got, "TV show created by George R. Martin"));
-        series.add(new Serie("Breaking bad", "13", R.drawable.bb, "TV show created by Vince Gilligan"));
+        series.add(new Serie("The Walking dead","13", R.drawable.wd,"TV show created By robert"));
+        series.add(new Serie("Gossip Girl","13", R.drawable.gg,"TV show created By robert"));
+        series.add(new Serie("House of Cards","13", R.drawable.hc,"TV show created By robert"));
+        series.add(new Serie("Breaking Bad","13", R.drawable.bb,"TV show created By robert"));
+        series.add(new Serie("Game of Thrones","13", R.drawable.got,"TV show created By robert"));
+        series.add(new Serie("How to get away with murder","13", R.drawable.mr,"TV show created By robert"));
     }
-
-    public void Change (Serie like){
-        favoritos.add(like);
+    //Se agrega un elemento a la lista de Favoritos
+    public void Change(Serie gusta){
+        favoritos.add(gusta);
     }
-    public void Remove (String x){
-        int count =0;
-        for (Serie e : favoritos){
-            if (e.getName() == x){
+    //Funcion que se encarga de quitar el objeto de la lista favoritos
+    public void Remove(String x){
+        int counter=0;
+        //Si encuentra el nombre se remueve de la lista
+        for(Serie e : favoritos){
+            if(e.getName() == x){
                 break;
             }
-            count++;
+            counter++;
         }
-        favoritos.remove(count);
-        if (adapter.ischeck()){
+        favoritos.remove(counter);
+        //Se refresca la lista de favoritos si se encuentra en el estado de solo favoritos
+        if(adapter.isfav()){
             adapter = new SeriesAdapter(favoritos, this);
             rv.setAdapter(adapter);
         }
     }
+    //Muesta el view de la derecha
     public void resizeLeft(){
         left.setVisibility(View.INVISIBLE);
         right.setVisibility(View.VISIBLE);
     }
+    //Muestra el view de la izquierda
     public void resizeRight(){
-        left.setVisibility(View.VISIBLE);
         right.setVisibility(View.INVISIBLE);
+        left.setVisibility(View.VISIBLE);
     }
-
 }

@@ -12,12 +12,12 @@
         android:animateLayoutChanges="true">
         <TableRow android:gravity="center">
             <Button
-                android:id="@+id/serie_buttom"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:background="#fff"
-                android:text="series" />
+                android:text="Series"
+                android:id="@+id/toda"/>
 
             <Button
                 android:id="@+id/favoritos"
@@ -55,3 +55,4 @@
         >
     </android.support.v7.widget.RecyclerView>
 </LinearLayout>
+

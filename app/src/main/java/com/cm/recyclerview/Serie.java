@@ -1,39 +1,60 @@
 package com.cm.recyclerview;
 
-/**
- * Created by UCA on 18/04/2018.
- */
 
 public class Serie {
     private String name;
     private String caps;
     private int img;
     private String desc;
-    private boolean check;
+    private boolean fav;
 
-    public Serie(String name, String caps, int img, String desc){
-        this.name= name;
-        this.caps=caps;
-        this.img=img;
-        this.desc=desc;
-        check=false;
-}
-        public String getName() { return name;}
-        public void setName(String name) {this.name =name;}
+    //Constructor del objecto Serie
+    public Serie(String name, String caps, int img, String desc) {
+        this.name = name;
+        this.caps = caps;
+        this.img = img;
+        this.desc = desc;
+        fav = false;
+    }
 
-        public String getCaps() {return caps;}
-        public void setCaps(String caps) {this.caps=caps;}
+    /* Getters y Setters de los elementos */
+    public String getName() {
+        return name;
+    }
 
-        public int getImg() {return img;}
-        public void setImg(int img) {this.img=img;}
+    public String getCaps() {
+        return caps;
+    }
 
-        public String getDesc() {return desc;}
-        public void setDesc(String desc) {this.desc=desc;}
+    public int getImg() {
+        return img;
+    }
 
-        public boolean isCheck() {return check;}
-        public void setCheck(Boolean check) {this.check=check;}
+    public String getDesc() {
+        return desc;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
+    public void setImg(int img) {
+        this.img = img;
+    }
 
+    public void setCaps(String caps) {
+        this.caps = caps;
+    }
 
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public boolean isFav() {
+        return fav;
+    }
+
+    public void setFav(boolean fav) {
+        this.fav = fav;
+    }
 }
